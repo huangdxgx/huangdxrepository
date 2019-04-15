@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dongxi.gmall.dao.mapper.IUserDao">
+  <resultMap id="BaseResultMap" type="com.dongxi.gmall.dao.mapper.User">
+    <id column="user_id" jdbcType="VARCHAR" property="userId" />
+    <result column="user_address" jdbcType="VARCHAR" property="userAddress" />
+    <result column="consignee" jdbcType="VARCHAR" property="consignee" />
+    <result column="bill_id" jdbcType="VARCHAR" property="billId" />
+    <result column="id_default" jdbcType="VARCHAR" property="idDefault" />
+  </resultMap>
+
+  <sql id="Base_Column_List">
+    user_id, user_address, consignee, bill_id, id_default
+  </sql>
+  <!--查询用户所有-->
+  <select id="selectAll" resultMap="BaseResultMap">
+    SELECT
+    <include refid="Base_Column_List" />
+    FROM  ins_user
+  </select>
+
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from ins_user
+    where user_id = #{userId,jdbcType=VARCHAR}
+  </select>
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from ins_user
+    where user_id = #{userId,jdbcType=VARCHAR}
+  </delete>
+
+  <insert id="insert" parameterType="com.dongxi.gmall.dao.mapper.User">
+    insert into ins_user (user_id, user_address, consignee, 
+      bill_id, id_default)
+    values (#{userId,jdbcType=VARCHAR}, #{userAddress,jdbcType=VARCHAR}, #{consignee,jdbcType=VARCHAR}, 
+      #{billId,jdbcType=VARCHAR}, #{idDefault,jdbcType=VARCHAR})
+  </insert>
+
+  <insert id="insertSelective" parameterType="com.dongxi.gmall.dao.mapper.User">
+    insert into ins_user
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="userId != null">
+        user_id,
+      </if>
+      <if test="userAddress != null">
+        user_address,
+      </if>
+      <if test="consignee != null">
+        consignee,
+      </if>
+      <if test="billId != null">
+        bill_id,
+      </if>
+      <if test="idDefault != null">
+        id_default,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="userId != null">
+        #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="userAddress != null">
+        #{userAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="consignee != null">
+        #{consignee,jdbcType=VARCHAR},
+      </if>
+      <if test="billId != null">
+        #{billId,jdbcType=VARCHAR},
+      </if>
+      <if test="idDefault != null">
+        #{idDefault,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+
+  <update id="updateByPrimaryKeySelective" parameterType="com.dongxi.gmall.dao.mapper.User">
+    update ins_user
+    <set>
+      <if test="userAddress != null">
+        user_address = #{userAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="consignee != null">
+        consignee = #{consignee,jdbcType=VARCHAR},
+      </if>
+      <if test="billId != null">
+        bill_id = #{billId,jdbcType=VARCHAR},
+      </if>
+      <if test="idDefault != null">
+        id_default = #{idDefault,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where user_id = #{userId,jdbcType=VARCHAR}
+  </update>
+
+  <update id="updateByPrimaryKey" parameterType="com.dongxi.gmall.dao.mapper.User">
+    update ins_user
+    set user_address = #{userAddress,jdbcType=VARCHAR},
+      consignee = #{consignee,jdbcType=VARCHAR},
+      bill_id = #{billId,jdbcType=VARCHAR},
+      id_default = #{idDefault,jdbcType=VARCHAR}
+    where user_id = #{userId,jdbcType=VARCHAR}
+  </update>
+
+</mapper>

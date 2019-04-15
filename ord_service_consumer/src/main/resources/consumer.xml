@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:dubbo="http://dubbo.apache.org/schema/dubbo"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd
+		http://dubbo.apache.org/schema/dubbo http://dubbo.apache.org/schema/dubbo/dubbo.xsd
+		http://code.alibabatech.com/schema/dubbo http://code.alibabatech.com/schema/dubbo/dubbo.xsd">
+
+    <!--扫描接口实现类的路径下的包-->
+    <context:component-scan base-package="com.dongxi.gmall.service.impl"></context:component-scan>
+
+    <dubbo:application name="order-service-consumer"></dubbo:application>
+
+    <dubbo:registry protocol="zookeeper" address="127.0.0.1:2181"></dubbo:registry>
+
+    <!--声明要调用的远程服务接口；生成远程服务代理-->
+    <dubbo:reference interface="com.dongxi.gmall.service.UserService" id="userService"></dubbo:reference>
+
+    <!--连接监控中心-->
+    <!--方式1：自动发现地址-->
+    <dubbo:monitor protocol="registry"></dubbo:monitor>
+    <!--方式2:直接找地址-->
+    <!-- G:\dubbo\课件、资料\课件\software\dubbo-monitor-simple-2.0.0\conf\dubbo.properties   里面配置了监控中心的连接地址-->
+    <!--<dubbo:monitor address="127.0.0.1:7070"></dubbo:monitor>-->
+
+</beans>

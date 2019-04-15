@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>sringBoot集成Thymeleaf</title>
+</head>
+<body>
+<p th:each="user : ${userList}">
+    <span th:text="${user.userId}"></span>
+    <span th:text="${user.consignee}"></span>
+
+    <span th:text="${user.phoneNum}"></span>
+    <span th:text="${user.userAddress}"></span>
+    <span th:text="${user.isDefault}"></span>
+</p>
+
+
+</body>
+</html>
